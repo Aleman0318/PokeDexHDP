@@ -57,7 +57,7 @@ const getSpecies = async (url) => {
 
 }
 
-const getDebilidades = async (url) => {
+const getDebilidades = async (array) => {
 
     const weaknesses = [];
 
@@ -65,16 +65,23 @@ const getDebilidades = async (url) => {
         method: 'GET'
     };
 
-    const response = await fetch(url, options);
+    for (let i = 0; i < array.length; i++) {
 
-    const data = await response.json();
+        const response = await fetch(array[i].type.url, options);
 
-    const weaknessesArray = data.damage_relations.double_damage_from;
+        const data = await response.json();
 
-    for (let i = 0; i < weaknesses.length; i++) {
+        const weaknessesAPI = data.damage_relations.double_damage_from;
 
-        weaknesses.push(weaknessesArray[i].name);
+        for (let j = 0; j < weaknessesAPI.length; j++) {
+
+            if (!weaknesses.includes(weaknessesAPI[j].name)) {
+                weaknesses.push(weaknessesAPI[j].name);
+            }
+
+        }
     }
+
 
     return weaknesses;
 
@@ -126,28 +133,32 @@ getPokemons().then(pokemonDetails => {
 
             const weaknessesArray = pokemonDetails[i].types;
 
-            for (let w = 0; w < weaknessesArray.length; w++) {
+            getDebilidades(weaknessesArray).then((weak) => {
 
-                getDebilidades(weaknessesArray[w].type.url).then((weak) => {
+                for (let d = 0; d < weak.length; d++) {
 
-                    for (let d = 0; d < weak.length; d++) {
+                    p.addWeaknesses(weak[d]);
+                }
 
-                        p.addWeaknesses(weak[d]);
+                //insertamos la instancia del pokemon en el array que contendra los pokemons para su manejo mas adelante
+                Pokemons.push(p);
 
-                        //insertamos la instancia del pokemon en el array que contendra los pokemons para su manejo mas adelante
-                        Pokemons.push(p);
-                    }
+                //mostramos los datos
+                let contador = 1;
 
-                    //mostramos los datos
-                    Pokemons.forEach(element => {
-                        console.log("Name: " + element.getName() + " ### Weaknesses: " + element.getWeaknesses());
-                    });
+                Pokemons.forEach(element => {
 
-                }).catch(error => {
-                    console.error("Ha ocurrido un error con las debilidades: ", error)
+                    console.log("Name: " + element.getName() + " ### Weaknesses: " + element.getWeaknesses() + "contador: " + contador);
+                    contador++;
                 });
 
-            }
+
+            }).catch(error => {
+                console.error("Ha ocurrido un error con las debilidades: ", error)
+            });
+
+
+
 
             //controlamos en caso que la promesa sea rechazada
         }).catch(error => {
