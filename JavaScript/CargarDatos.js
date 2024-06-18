@@ -42,9 +42,12 @@ const getSpecies = async (url) => {
 
     for (let i = 0; i < specieArray.length; i++) {
 
-        if (specieArray[i].language.name == "es") {
+        if (specieArray[i].language.name == "en") {
 
-            species.push(specieArray[i].genus);
+            let cadena = specieArray[i].genus;
+            let speciePokemon = cadena.replace("Pokémon", "").trim(); //eliminamos la palabra pokemon de la cadena obtenida en su especie ya que siempre va pokemon especie
+        
+            species.push(speciePokemon);
             break;
         }
 
@@ -103,7 +106,7 @@ getPokemons().then(pokemonDetails => {
 
             //mostramos los datos
             Pokemons.forEach(element => {
-                console.log("Name: " + element.getName() + " ### Peso: " + element.getWeight() + " kg");
+                console.log("Name: " + element.getName() + " ### Species: " + element.getSpecies());
             });
 
             
