@@ -7,11 +7,13 @@ class Pokemon {
     #species;
     #height;
     #weight;
+    #weaknesses;
 
     constructor(){
         this.#abilities = [];
         this.#types = [];
         this.#species = [];
+        this.#weaknesses = [];
     }
 
     getName(){
@@ -38,6 +40,10 @@ class Pokemon {
         return this.#weight;
     }
 
+    getWeaknesses(){
+        return this.#weaknesses;
+    }
+
     setName(name){
         this.#name = name;
     }
@@ -60,6 +66,10 @@ class Pokemon {
 
     setWeight(weight){
         this.#weight = weight / 10; //convertimos la medida default "hectogramos" en kilogramos para mejorar la comprension
+    }
+
+    addWeaknesses(weaknesses){
+        this.#weaknesses.push(weaknesses);
     }
 }
 

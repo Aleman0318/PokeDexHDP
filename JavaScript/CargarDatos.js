@@ -46,7 +46,7 @@ const getSpecies = async (url) => {
 
             let cadena = specieArray[i].genus;
             let speciePokemon = cadena.replace("Pokémon", "").trim(); //eliminamos la palabra pokemon de la cadena obtenida en su especie ya que siempre va pokemon especie
-        
+
             species.push(speciePokemon);
             break;
         }
@@ -54,6 +54,29 @@ const getSpecies = async (url) => {
     }
 
     return species;
+
+}
+
+const getDebilidades = async (url) => {
+
+    const weaknesses = [];
+
+    const options = {
+        method: 'GET'
+    };
+
+    const response = await fetch(url, options);
+
+    const data = await response.json();
+
+    const weaknessesArray = data.damage_relations.double_damage_from;
+
+    for (let i = 0; i < weaknesses.length; i++) {
+
+        weaknesses.push(weaknessesArray[i].name);
+    }
+
+    return weaknesses;
 
 }
 
@@ -101,15 +124,31 @@ getPokemons().then(pokemonDetails => {
             //seteamos el peso de cada pokemon en hectogramos (el metodo hace la conversion de forma interna a kg)
             p.setWeight(pokemonDetails[i].weight);
 
-            //insertamos la instancia del pokemon en el array que contendra los pokemons para su manejo mas adelante
-            Pokemons.push(p);
+            const weaknessesArray = pokemonDetails[i].types;
 
-            //mostramos los datos
-            Pokemons.forEach(element => {
-                console.log("Name: " + element.getName() + " ### Species: " + element.getSpecies());
-            });
+            for (let w = 0; w < weaknessesArray.length; w++) {
 
-            
+                getDebilidades(weaknessesArray[w].type.url).then((weak) => {
+
+                    for (let d = 0; d < weak.length; d++) {
+
+                        p.addWeaknesses(weak[d]);
+
+                        //insertamos la instancia del pokemon en el array que contendra los pokemons para su manejo mas adelante
+                        Pokemons.push(p);
+                    }
+
+                    //mostramos los datos
+                    Pokemons.forEach(element => {
+                        console.log("Name: " + element.getName() + " ### Weaknesses: " + element.getWeaknesses());
+                    });
+
+                }).catch(error => {
+                    console.error("Ha ocurrido un error con las debilidades: ", error)
+                });
+
+            }
+
             //controlamos en caso que la promesa sea rechazada
         }).catch(error => {
             console.error("Ha ocurrido un error con las especies: ", error);
@@ -118,7 +157,7 @@ getPokemons().then(pokemonDetails => {
 
     }
 
-    
+
 
 
     //manejamos en caso que la promesa sea rechazada
