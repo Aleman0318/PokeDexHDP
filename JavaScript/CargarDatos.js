@@ -99,6 +99,7 @@ getPokemons().then(pokemonDetails => {
         const p = new Pokemon(); //nueva instancia pokemon
 
         p.setName(pokemonDetails[i].name); //seteamos el nombre de la instancia
+        p.setID(pokemonDetails[i].id); //seteamos el id del pokemon
 
         const abilitiesArray = pokemonDetails[i].abilities; //recortamos la consulta del array de habilidades para manejo mas fácil
 
@@ -143,12 +144,13 @@ getPokemons().then(pokemonDetails => {
                 //insertamos la instancia del pokemon en el array que contendra los pokemons para su manejo mas adelante
                 Pokemons.push(p);
 
-                //mostramos los datos
-                let contador = 1;
+                Pokemons.sort((a, b) => a.getID() - b.getID()); //ordenamos los pokemons por su ID
 
+                let contador = 1;
+                //mostramos los datos
                 Pokemons.forEach(element => {
 
-                    console.log("Name: " + element.getName() + " ### Weaknesses: " + element.getWeaknesses() + "contador: " + contador);
+                    console.log("Name: " + element.getName() + " ### Weaknesses: " + element.getWeaknesses() + " contador: " + contador);
                     contador++;
                 });
 

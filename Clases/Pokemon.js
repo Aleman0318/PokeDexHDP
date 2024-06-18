@@ -1,6 +1,7 @@
 
 class Pokemon {
     
+    #id;
     #name;
     #abilities;
     #types;
@@ -14,6 +15,10 @@ class Pokemon {
         this.#types = [];
         this.#species = [];
         this.#weaknesses = [];
+    }
+
+    getID(){
+        return this.#id;
     }
 
     getName(){
@@ -70,6 +75,10 @@ class Pokemon {
 
     addWeaknesses(weaknesses){
         this.#weaknesses.push(weaknesses);
+    }
+
+    setID(id){
+        this.#id = id;
     }
 }
 
