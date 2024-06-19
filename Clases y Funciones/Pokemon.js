@@ -1,3 +1,4 @@
+import Stats from "./Stats.js";
 
 class Pokemon {
     
@@ -10,6 +11,7 @@ class Pokemon {
     #weight;
     #weaknesses;
     #eggGroups;
+    #stats;
 
     constructor(){
         this.#abilities = [];
@@ -17,6 +19,7 @@ class Pokemon {
         this.#species = [];
         this.#weaknesses = [];
         this.#eggGroups = [];
+        this.#stats = new Stats();
     }
 
     getID(){
@@ -55,6 +58,10 @@ class Pokemon {
         return this.#eggGroups;
     }
 
+    getStats(){
+        return this.#stats;
+    }
+
     setName(name){
         this.#name = name;
     }
@@ -89,6 +96,10 @@ class Pokemon {
 
     addeggGroup(group){
         this.#eggGroups.push(group);
+    }
+
+    setStats(object){
+        this.#stats = object;
     }
 }
 

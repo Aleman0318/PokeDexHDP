@@ -4,7 +4,8 @@ import Pokemon from "../Clases y Funciones/Pokemon.js";
 import getPokemons from "../Clases y Funciones/getPokemons.js"
 import getSpecies from "../Clases y Funciones/getSpecies.js";
 import getDebilidades from "../Clases y Funciones/getDebilidades.js";
-import getEggsGroup from "../Clases y Funciones/getEggsGroups.js"
+import getEggsGroup from "../Clases y Funciones/getEggsGroups.js";
+import getStats from "../Clases y Funciones/getStats.js";
 
 //manejamos lo que ocurrira si la promesa se cumple o es rechazada
 getPokemons().then(pokemonDetails => {
@@ -72,27 +73,36 @@ getPokemons().then(pokemonDetails => {
                         p.addeggGroup(groups[e]);
                     }
 
-                     //insertamos la instancia del pokemon en el array que contendra los pokemons para su manejo mas adelante
-                    Pokemons.push(p);
+                    getStats(pokemonDetails[i].stats).then(stats => {
+                        
+                        p.setStats(stats);
 
-                    Pokemons.sort((a, b) => a.getID() - b.getID()); //ordenamos los pokemons por su ID
+                        //insertamos la instancia del pokemon en el array que contendra los pokemons para su manejo mas adelante
+                        Pokemons.push(p);
 
-                    let contador = 1;
-                    //mostramos los datos
-                    Pokemons.forEach(element => {
+                        Pokemons.sort((a, b) => a.getID() - b.getID()); //ordenamos los pokemons por su ID
 
-                        console.log("Name: " + element.getName() + " ### Species: " + element.getSpecies() + " contador: " + contador);
-                        contador++;
-                    });
+                        let contador = 1;
+                        //mostramos los datos
+                        Pokemons.forEach(element => {
+
+                            console.log("Name: " + element.getName() + " ### HP: " + element.getStats().getHP() + " contador: " + contador);
+                            contador++;
+                        });
+
+                    }).catch(error => {
+                        console.error("Ha ocurrido un error con la carga de stats: ", error)
+                    })
+                     
 
                 }).catch(error => {
-                    console.error("Ha ocurrido un error con los grupos de Huevos: ", error);
+                    console.error("Ha ocurrido un error con la carga de los grupos de Huevos: ", error);
                 });
 
                
 
             }).catch(error => {
-                console.error("Ha ocurrido un error con las debilidades: ", error)
+                console.error("Ha ocurrido un error con la carga de las debilidades: ", error)
             });
 
 
@@ -100,7 +110,7 @@ getPokemons().then(pokemonDetails => {
 
             //controlamos en caso que la promesa sea rechazada
         }).catch(error => {
-            console.error("Ha ocurrido un error con las especies: ", error);
+            console.error("Ha ocurrido un error con la carga de las especies: ", error);
         });
 
 
@@ -109,7 +119,7 @@ getPokemons().then(pokemonDetails => {
 
     //manejamos en caso que la promesa sea rechazada
 }).catch(error => {
-    console.error("Ha ocurrido un error con la carga de datos: ", error);
+    console.error("Ha ocurrido un error con la carga de los datos: ", error);
 });
 
 
