@@ -6,24 +6,24 @@ const getStats = async (dataP) =>{
         method: 'GET'
     };
 
-    const data = await dataP;
+    const data = dataP;
     const stats = new Stats();
 
     for (let i = 0; i < dataP.length; i++) {
         
-        if(i = 0){
+        if(i == 0){
             stats.setHP(data[i].base_stat);
         }
-        else if (i = 1){
+        else if (i == 1){
             stats.setAttack(data[i].base_stat);
         }
-        else if (i = 2){
+        else if (i == 2){
             stats.setDefense(data[i].base_stat);
         }
-        else if (i = 3){
+        else if (i == 3){
             stats.setSpecialAttack(data[i].base_stat);
         }
-        else if (i = 4){
+        else if (i == 4){
             stats.setSpecialDefense(data[i].base_stat);
         }
         else {

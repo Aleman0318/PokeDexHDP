@@ -86,7 +86,7 @@ getPokemons().then(pokemonDetails => {
                         //mostramos los datos
                         Pokemons.forEach(element => {
 
-                            console.log("Name: " + element.getName() + " ### HP: " + element.getStats().getHP() + " contador: " + contador);
+                            console.log("Name: " + element.getName() + " ### Defensa: " + element.getStats().getSpeed() + " contador: " + contador);
                             contador++;
                         });
 
