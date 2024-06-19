@@ -1,91 +1,10 @@
 
 //importamos la clase Pokemon
-import Pokemon from "../Clases/Pokemon.js";
-
-const getPokemons = async function () {
-
-    //declaramos el metodo get para la variable options que sera pasada como parametro de la funcion fetch
-    const options = {
-        method: 'GET'
-    };
-
-    const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=150", options); //obtenemos los primeros 150 pokemons a traves de un endpoint
-
-    const data = await response.json(); //parseamos a JSON la promesa obtenida
-
-    const PokemonsURLS = data.results.map(pokemon => pokemon.url); //obtenemos las url de cada pokemon y creamos un nuevo array con esos datos
-
-    const PokemonsDetailsPromises = PokemonsURLS.map(url => fetch(url, options).then(res => res.json())); // como el resultado del fetch sera una promesa, usamos directamente
-    //el metodo then para controlar que hacer con la promesa obtenida si la carga de datos funciona
-
-    //contendra por medio del metodo promise.all() un array de promesas del conjunto de promesas realizadas en pokemonsdetailspromises volviendose en si una sola promesa
-    const pokemonDetails = await Promise.all(PokemonsDetailsPromises);
-
-    return pokemonDetails;
-
-}
-
-
-const getSpecies = async (url) => {
-
-    const species = [];
-
-    const options = {
-        method: 'GET'
-    };
-
-    const response = await fetch(url, options);
-
-    const data = await response.json();
-
-    const specieArray = data.genera;
-
-    for (let i = 0; i < specieArray.length; i++) {
-
-        if (specieArray[i].language.name == "en") {
-
-            let cadena = specieArray[i].genus;
-            let speciePokemon = cadena.replace("Pokémon", "").trim(); //eliminamos la palabra pokemon de la cadena obtenida en su especie ya que siempre va pokemon especie
-
-            species.push(speciePokemon);
-            break;
-        }
-
-    }
-
-    return species;
-
-}
-
-const getDebilidades = async (array) => {
-
-    const weaknesses = [];
-
-    const options = {
-        method: 'GET'
-    };
-
-    for (let i = 0; i < array.length; i++) {
-
-        const response = await fetch(array[i].type.url, options);
-
-        const data = await response.json();
-
-        const weaknessesAPI = data.damage_relations.double_damage_from;
-
-        for (let j = 0; j < weaknessesAPI.length; j++) {
-
-            if (!weaknesses.includes(weaknessesAPI[j].name)) {
-                weaknesses.push(weaknessesAPI[j].name);
-            }
-
-        }
-    }
-
-
-    return weaknesses;
-
-}
+import Pokemon from "../Clases y Funciones/Pokemon.js";
+import getPokemons from "../Clases y Funciones/getPokemons.js"
+import getSpecies from "../Clases y Funciones/getSpecies.js";
+import getDebilidades from "../Clases y Funciones/getDebilidades.js";
+import getEggsGroup from "../Clases y Funciones/getEggsGroups.js"
 
 //manejamos lo que ocurrira si la promesa se cumple o es rechazada
 getPokemons().then(pokemonDetails => {
@@ -132,28 +51,45 @@ getPokemons().then(pokemonDetails => {
             //seteamos el peso de cada pokemon en hectogramos (el metodo hace la conversion de forma interna a kg)
             p.setWeight(pokemonDetails[i].weight);
 
+            //acortamos el array obtenido para enviarlo y sea mas facil entender lo que se esta enviando
             const weaknessesArray = pokemonDetails[i].types;
 
+            //metodo que extrae un array de las debilidades de los pokemons
             getDebilidades(weaknessesArray).then((weak) => {
 
+                //asignamos cada valor del array obtenido por medio del metodo addWeaknesses
                 for (let d = 0; d < weak.length; d++) {
 
                     p.addWeaknesses(weak[d]);
                 }
 
-                //insertamos la instancia del pokemon en el array que contendra los pokemons para su manejo mas adelante
-                Pokemons.push(p);
+                //metodo que extrae un array de grupo de huevos de los pokemons
+                getEggsGroup(pokemonDetails[i].species.url).then((groups) => {
 
-                Pokemons.sort((a, b) => a.getID() - b.getID()); //ordenamos los pokemons por su ID
+                    //asignamos cada valor del array retornado por medio del metodo addeggGroup()
+                    for (let e = 0; e < groups.length; e++) {
+                        
+                        p.addeggGroup(groups[e]);
+                    }
 
-                let contador = 1;
-                //mostramos los datos
-                Pokemons.forEach(element => {
+                     //insertamos la instancia del pokemon en el array que contendra los pokemons para su manejo mas adelante
+                    Pokemons.push(p);
 
-                    console.log("Name: " + element.getName() + " ### Weaknesses: " + element.getWeaknesses() + " contador: " + contador);
-                    contador++;
+                    Pokemons.sort((a, b) => a.getID() - b.getID()); //ordenamos los pokemons por su ID
+
+                    let contador = 1;
+                    //mostramos los datos
+                    Pokemons.forEach(element => {
+
+                        console.log("Name: " + element.getName() + " ### Species: " + element.getSpecies() + " contador: " + contador);
+                        contador++;
+                    });
+
+                }).catch(error => {
+                    console.error("Ha ocurrido un error con los grupos de Huevos: ", error);
                 });
 
+               
 
             }).catch(error => {
                 console.error("Ha ocurrido un error con las debilidades: ", error)
@@ -169,8 +105,6 @@ getPokemons().then(pokemonDetails => {
 
 
     }
-
-
 
 
     //manejamos en caso que la promesa sea rechazada
