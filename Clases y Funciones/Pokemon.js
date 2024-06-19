@@ -12,6 +12,7 @@ class Pokemon {
     #weaknesses;
     #eggGroups;
     #stats;
+    #color;
 
     constructor(){
         this.#abilities = [];
@@ -62,6 +63,10 @@ class Pokemon {
         return this.#stats;
     }
 
+    getColor(){
+        return this.#color;
+    }
+
     setName(name){
         this.#name = name;
     }
@@ -100,6 +105,10 @@ class Pokemon {
 
     setStats(object){
         this.#stats = object;
+    }
+
+    setColor(color){
+        this.#color = color;
     }
 }
 

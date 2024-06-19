@@ -6,6 +6,7 @@ import getSpecies from "../Clases y Funciones/getSpecies.js";
 import getDebilidades from "../Clases y Funciones/getDebilidades.js";
 import getEggsGroup from "../Clases y Funciones/getEggsGroups.js";
 import getStats from "../Clases y Funciones/getStats.js";
+import getColor from "../Clases y Funciones/getColor.js";
 
 //manejamos lo que ocurrira si la promesa se cumple o es rechazada
 getPokemons().then(pokemonDetails => {
@@ -77,22 +78,33 @@ getPokemons().then(pokemonDetails => {
                         
                         p.setStats(stats);
 
-                        //insertamos la instancia del pokemon en el array que contendra los pokemons para su manejo mas adelante
-                        Pokemons.push(p);
+                        getColor(pokemonDetails[i].species.url).then(color => {
+                            
+                            //insertamos color
+                            p.setColor(color);
 
-                        Pokemons.sort((a, b) => a.getID() - b.getID()); //ordenamos los pokemons por su ID
+                            //insertamos la instancia del pokemon en el array que contendra los pokemons para su manejo mas adelante
+                            Pokemons.push(p);
 
-                        let contador = 1;
-                        //mostramos los datos
-                        Pokemons.forEach(element => {
+                            Pokemons.sort((a, b) => a.getID() - b.getID()); //ordenamos los pokemons por su ID
 
-                            console.log("Name: " + element.getName() + " ### Defensa: " + element.getStats().getSpeed() + " contador: " + contador);
-                            contador++;
+                            let contador = 1;
+                            //mostramos los datos
+                            Pokemons.forEach(element => {
+
+                                console.log("Name: " + element.getName() + " ### Color: " + element.getColor() + " contador: " + contador);
+                                contador++;
+                            });
+
+                        }).catch(error => {
+                            console.error("Ha ocurrido un error al cargar los colores: ", error);
                         });
+
+                        
 
                     }).catch(error => {
                         console.error("Ha ocurrido un error con la carga de stats: ", error)
-                    })
+                    });
                      
 
                 }).catch(error => {
