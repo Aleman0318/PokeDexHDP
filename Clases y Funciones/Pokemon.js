@@ -13,6 +13,7 @@ class Pokemon {
     #eggGroups;
     #stats;
     #color;
+    #moves;
 
     constructor(){
         this.#abilities = [];
@@ -20,6 +21,7 @@ class Pokemon {
         this.#weaknesses = [];
         this.#eggGroups = [];
         this.#stats = new Stats();
+        this.#moves = [];
     }
 
     getID(){
@@ -66,6 +68,10 @@ class Pokemon {
         return this.#color;
     }
 
+    getMoves(){
+        return this.#moves;
+    }
+
     setName(name){
         this.#name = name;
     }
@@ -108,6 +114,10 @@ class Pokemon {
 
     setColor(color){
         this.#color = color;
+    }
+
+    addMove(move){
+        this.#moves.push(move);
     }
 }
 

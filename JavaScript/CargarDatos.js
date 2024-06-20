@@ -7,6 +7,7 @@ import getDebilidades from "../Clases y Funciones/getDebilidades.js";
 import getEggsGroup from "../Clases y Funciones/getEggsGroups.js";
 import getStats from "../Clases y Funciones/getStats.js";
 import getColorPokemon from "../Clases y Funciones/getColorPokemon.js";
+import getMovements from "../Clases y Funciones/Moves.js";
 
 
 const cargarDatos = async () => {
@@ -108,6 +109,16 @@ const cargarDatos = async () => {
                 colores.push(color);
             }
 
+            //***************MOVIMIENTOS*******************/
+
+            const ArrayMovements = await getMovements(pokemonDetails[i].moves);
+
+            for (let h = 0; h < ArrayMovements.length; h++) {
+                
+                p.addMove(ArrayMovements[h]);
+                
+            }
+
             //***************AGREGAR POKEMON*******************/
 
             Pokemons.push(p); //agrego el pokemon al array que los contendra como objetos con sus datos
@@ -121,7 +132,7 @@ const cargarDatos = async () => {
         //mostramos los datos
         Pokemons.forEach(element => {
 
-            console.log("Name: " + element.getName() + "### Peso: " + element.getWeight() +"kg" + "### Altura: " + element.getHeight() + "cm" + " ###contador: " + contador);
+            console.log("Name: " + element.getName() + " # Movements >> " + "Name: " + element.getMoves().getName() + " # Power: " + element.getMoves().getPower() + " # contador: " + contador);
             contador++;
          });
 
