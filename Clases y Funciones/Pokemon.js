@@ -6,7 +6,7 @@ class Pokemon {
     #name;
     #abilities;
     #types;
-    #species;
+    #specie;
     #height;
     #weight;
     #weaknesses;
@@ -17,7 +17,6 @@ class Pokemon {
     constructor(){
         this.#abilities = [];
         this.#types = [];
-        this.#species = [];
         this.#weaknesses = [];
         this.#eggGroups = [];
         this.#stats = new Stats();
@@ -40,7 +39,7 @@ class Pokemon {
     }
 
     getSpecies(){
-        return this.#species;
+        return this.#specie;
     }
 
     getHeight(){
@@ -79,8 +78,8 @@ class Pokemon {
         this.#types.push(type);
     }
 
-    addSpecie(specie){
-        this.#species.push(specie);
+    setSpecie(specie){
+        this.#specie = specie;
     }
 
     setHeight(height){

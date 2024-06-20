@@ -1,15 +1,11 @@
 import Stats from "./Stats.js";
 
-const getStats = async (dataP) =>{
-
-    const options = {
-        method: 'GET'
-    };
+const getStats = (dataP) =>{
 
     const data = dataP;
     const stats = new Stats();
 
-    for (let i = 0; i < dataP.length; i++) {
+    for (let i = 0; i < data.length; i++) {
         
         if(i == 0){
             stats.setHP(data[i].base_stat);

@@ -1,31 +1,23 @@
-const getSpecies = async (url) => {
+const getSpecies = (dataSpecie) => {
 
-    const species = [];
+    const specieArray = dataSpecie.genera;
 
-    const options = {
-        method: 'GET'
-    };
-
-    const response = await fetch(url, options);
-
-    const data = await response.json();
-
-    const specieArray = data.genera;
+    let specie;
 
     for (let i = 0; i < specieArray.length; i++) {
 
         if (specieArray[i].language.name == "en") {
 
             let cadena = specieArray[i].genus;
-            let speciePokemon = cadena.replace("Pokémon", "").trim(); //eliminamos la palabra pokemon de la cadena obtenida en su especie ya que siempre va pokemon especie
+            let speciePokemon = cadena.replace("Pokémon", "").trim(); //eliminamos la palabra pokemon de la cadena obtenida en su especie ya que solo necesitamos la specie
 
-            species.push(speciePokemon);
+            specie = speciePokemon;
             break;
         }
 
     }
 
-    return species;
+    return specie;
 
 }
 

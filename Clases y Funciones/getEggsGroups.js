@@ -1,16 +1,8 @@
-const getEggsGroup = async (url) => {
+const getEggsGroup = (dataSpecie) => {
 
     const eggsGroup = [];
 
-    const options = {
-        method: 'GET'
-    };
-
-    const response = await fetch(url, options);
-
-    const data = await response.json();
-
-    const groupsArray = data.egg_groups;
+    const groupsArray = dataSpecie.egg_groups;
 
     for (let i = 0; i < groupsArray.length; i++) {
         
