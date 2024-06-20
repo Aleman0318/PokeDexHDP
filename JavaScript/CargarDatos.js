@@ -130,11 +130,22 @@ const cargarDatos = async () => {
        
         let contador = 1;
         //mostramos los datos
-        Pokemons.forEach(element => {
+        // Pokemons.forEach(element => {
 
-            console.log("Name: " + element.getName() + " # Movements >> " + "Name: " + element.getMoves().getName() + " # Power: " + element.getMoves().getPower() + " # contador: " + contador);
-            contador++;
-         });
+        //     console.log("Name: " + element.getName() + " # Movements >> " + "Name: " + element.getMoves().getName() + " # Power: " + element.getMoves().getPower() + " # contador: " + contador);
+        //     contador++;
+        //  });
+
+        Pokemons.forEach(element => {
+            console.log(`Pokemon: ${element.getName()}`);
+            console.log(`Movimientos:`);
+
+            for (let r = 0; r < element.getMoves().length; r++) {
+                
+                console.log(`Nombre: ${element.getMoves()[r].getName()} # Poder: ${element.getMoves()[r].getPower()}`);
+     
+            }
+        });
 
     } catch (error) {
         console.error("Ha ocurrido un error con la carga de datos: ", error);

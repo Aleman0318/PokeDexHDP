@@ -1,9 +1,9 @@
 
 import Moves from "./Moves";
 
-const getMovements = async (array) =>{
+const getMovements = async function (array){
 
-    const moves = [];
+    const movimientos = [];
     
     const options = {
         method: 'GET'
@@ -11,7 +11,7 @@ const getMovements = async (array) =>{
 
     for (let i = 0; i < array.length; i++) {
 
-        const m = new Moves();
+        const movements = new Moves();
         
         const response = await fetch(array[i].move.url, options);
 
@@ -21,14 +21,14 @@ const getMovements = async (array) =>{
 
         const powerMove = data.power;
 
-        m.setName(nameMove);
+        movements.setName(nameMove);
 
-        m.setPower(powerMove);
+        movements.setPower(powerMove);
         
-        moves.push(m);
+        movimientos.push(movements);
     }
 
-    return moves;
+    return movimientos;
 }
 
 export default getMovements;
