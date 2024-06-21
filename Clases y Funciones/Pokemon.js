@@ -14,6 +14,7 @@ class Pokemon {
     #stats;
     #color;
     #moves;
+    #image;
 
     constructor(){
         this.#abilities = [];
@@ -72,6 +73,10 @@ class Pokemon {
         return this.#moves;
     }
 
+    getImagen(){
+        return this.#image;
+    }
+
     setName(name){
         this.#name = name;
     }
@@ -118,6 +123,10 @@ class Pokemon {
 
     addMove(move){
         this.#moves.push(move);
+    }
+
+    setImagen(image){
+        this.#image = image;
     }
 }
 
