@@ -56,6 +56,9 @@ const cargarDatos = async () => {
             const ArrayMovements = await getMovements(pokemonDetail.moves);
             ArrayMovements.forEach(move => p.addMove(move));
 
+            const imagen = pokemonDetail.sprites.other.official-artwork.front_default;
+            p.setImagen(imagen);
+
             Pokemons.push(p);
 
         });
