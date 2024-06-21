@@ -9,11 +9,8 @@ import getStats from "../Clases y Funciones/getStats.js";
 import getColorPokemon from "../Clases y Funciones/getColorPokemon.js";
 import getMovements from "../Clases y Funciones/getMovements.js"
 
-
 const cargarDatos = async () => {
-
     try {
-
         const Pokemons = [];
         const colores = [];
 
@@ -23,137 +20,55 @@ const cargarDatos = async () => {
             method: 'GET'
         };
 
-        for (let i = 0; i < pokemonDetails.length; i++) {
+        const promises = pokemonDetails.map(async (pokemonDetail) => {
+            const p = new Pokemon();
 
-            const p = new Pokemon(); //creamos una nueva instancia pokemon
+            const response = await fetch(pokemonDetail.species.url, options);
+            const dataSpecies = await response.json();
 
-            //***************PROMESA*******************/
+            p.setName(pokemonDetail.name);
+            p.setID(pokemonDetail.id);
 
-            let response = await fetch(pokemonDetails[i].species.url, options); //obtenemos todo lo relacionado con las species de los pokemons
+            pokemonDetail.abilities.forEach(ability => p.addAbility(ability.ability.name));
+            pokemonDetail.types.forEach(type => p.addType(type.type.name));
 
-            const dataSpecies = await response.json(); //parseamos a JSON la promesa obtenida
+            p.setHeight(pokemonDetail.height);
+            p.setWeight(pokemonDetail.weight);
 
-            //***************NOMBRE Y ID*******************/
+            const Specie = getSpecies(dataSpecies);
+            p.setSpecie(Specie);
 
-            p.setName(pokemonDetails[i].name); //seteamos el nombre a la instancia
-            p.setID(pokemonDetails[i].id) //seteamos el id a la instancia
+            const weaknesses = await getDebilidades(pokemonDetail.types);
+            weaknesses.forEach(weakness => p.addWeaknesses(weakness));
 
-            //***************HABILIDADES*******************/
+            const EggGroups = getEggsGroup(dataSpecies);
+            EggGroups.forEach(group => p.addeggGroup(group));
 
-            const abilitiesArray = pokemonDetails[i].abilities; //acortamos la consulta para mejor uso
-            //agregamos cada habilidad del pokemon por medio del metodo propio de la instancia
-            for (let j = 0; j < abilitiesArray.length; j++) {
-                
-                p.addAbility(abilitiesArray[j].ability.name);
-                
-            }
-
-            //***************TIPOS*******************/
-
-            const typesArray = pokemonDetails[i].types; //recortamos la consulta del array de tipos para manejo mas fácil
-
-            //agregamos cada tipo del pokemon por medio del metodo propio de la instancia
-            for (let z = 0; z < typesArray.length; z++) {
-
-                p.addType(typesArray[z].type.name); 
-
-            }
-
-            //***************PESO Y ALTURA*******************/
-
-            p.setHeight(pokemonDetails[i].height); //seteamos la altura en decimetros (el metodo set convierte a cm)
-            p.setWeight(pokemonDetails[i].weight); //seteamos el peso en hectogramos (el metodo set convierte a kg)
-
-
-            //***************ESPECIES*******************/
-
-            const Specie = getSpecies(dataSpecies); //obtenemos la especie por medio de la data obtenida de la promesa realizada
-
-            p.setSpecie(Specie); //seteamos la especie en la instancia
-
-            //***************DEBILIDADES*******************/
-
-            const weaknessesArray = pokemonDetails[i].types; //recortamos la solicitud para pasarla por parametro
-
-            const weaknesses = await getDebilidades(weaknessesArray); //obtenemos un array con todas las debilidades del pokemon
-
-            for (let w = 0; w < weaknesses.length; w++) {
-                
-                p.addWeaknesses(weaknesses[w]); //añadimos cada debilidad al pokemon
-                
-            }
-
-            //***************GRUPOS DE HUEVOS*******************/
-
-            const EggGroups = getEggsGroup(dataSpecies); //obtenemos un array de grupos de huevos por medio de la data de la promesa
-
-            for (let e = 0; e < EggGroups.length; e++) {
-                
-                p.addeggGroup(EggGroups[e]); //agregamos cada grupo de huevo al pokemon
-                
-            }
-
-            //***************ESTADISTICAS*******************/
-
-            const stats = getStats(pokemonDetails[i].stats); //obtenemos un objeto de tipo stats
-
+            const stats = getStats(pokemonDetail.stats);
             p.setStats(stats);
 
-            //***************COLOR*******************/
-
-            const color = getColorPokemon(dataSpecies); //obtenemos un color directamente de la data de la promesa
-
-            p.setColor(color); //seteamos el color en la instancia
-
-            if(!colores.includes(color)){
+            const color = getColorPokemon(dataSpecies);
+            p.setColor(color);
+            if (!colores.includes(color)) {
                 colores.push(color);
             }
 
-            //***************MOVIMIENTOS*******************/
+            const ArrayMovements = await getMovements(pokemonDetail.moves);
+            ArrayMovements.forEach(move => p.addMove(move));
 
-            const ArrayMovements = await getMovements(pokemonDetails[i].moves);
+            Pokemons.push(p);
 
-            for (let h = 0; h < ArrayMovements.length; h++) {
-                
-                p.addMove(ArrayMovements[h]);
-                
-            }
-
-            //***************AGREGAR POKEMON*******************/
-
-            Pokemons.push(p); //agrego el pokemon al array que los contendra como objetos con sus datos
-
-           
-        }
-
-        Pokemons.sort((a, b) => a.getID() - b.getID()); //ordenamos los pokemons por su ID
-       
-        let contador = 1;
-        //mostramos los datos
-        // Pokemons.forEach(element => {
-
-        //     console.log("Name: " + element.getName() + " # Movements >> " + "Name: " + element.getMoves().getName() + " # Power: " + element.getMoves().getPower() + " # contador: " + contador);
-        //     contador++;
-        //  });
-
-        Pokemons.forEach(element => {
-            console.log(`Pokemon: ${element.getName()}`);
-            console.log(`Movimientos:`);
-
-            for (let r = 0; r < element.getMoves().length; r++) {
-                
-                console.log(`Nombre: ${element.getMoves()[r].getName()} # Poder: ${element.getMoves()[r].getPower()}`);
-     
-            }
         });
+
+        await Promise.all(promises);
+
+        Pokemons.sort((a, b) => a.getID() - b.getID());
+
+        return Pokemons;
 
     } catch (error) {
         console.error("Ha ocurrido un error con la carga de datos: ", error);
     }
-
-
 }
 
-
 cargarDatos();
-
