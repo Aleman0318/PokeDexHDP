@@ -7,7 +7,7 @@ import getDebilidades from "../Clases y Funciones/getDebilidades.js";
 import getEggsGroup from "../Clases y Funciones/getEggsGroups.js";
 import getStats from "../Clases y Funciones/getStats.js";
 import getColorPokemon from "../Clases y Funciones/getColorPokemon.js";
-import getMovements from "../Clases y Funciones/Moves.js";
+import getMovements from "../Clases y Funciones/getMovements.js"
 
 
 const cargarDatos = async () => {
