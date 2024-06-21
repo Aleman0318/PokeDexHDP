@@ -55,20 +55,29 @@ function agregarAcompanante(id) {
 
 function crearTarjetaPokemon(pokemon) {
 
-    card.classList.add('pokemon-card');
-    card.innerHTML = `
-        <img src="${pokemon.getImagen()}" alt="${pokemon.getName()}">
-        <h2>${pokemon.getName()}</h2>
-        <button onclick="agregarAcompanante(${pokemon.getID()})">Agregar como Acompanante</button>
-    `;
-    return card;
-
     const card = document.createElement('div');
     card.setAttribute("class", "pokemon-card");
 
     const img = document.createElement("img");
     img.setAttribute("src", pokemon.getImagen());
     img.setAttribute("alt", pokemon.getName());
+
+    const h2 = document.createElement("h2");
+    h2.textContent = pokemon.getName();
+
+    const button = document.createElement("button");
+    button.setAttribute("type", "button");
+    button.textContent = "Agregar como Acompañante";
+    
+    button.addEventListener("click", () =>{
+        agregarAcompanante(pokemon.getID());
+    })
+
+    card.appendChild(img);
+    card.appendChild(h2);
+    card.appendChild(button);
+
+    return card;
 
 }
 
