@@ -1,6 +1,11 @@
 
 //importamos la clase Pokemon
 import Pokemon from "../Clases/Pokemon.js";
+import DibujarPokemon from "./DibujarPokemon.js";
+import test from "./test.js";
+import buscar from "./pokefiltro.js";
+import DibujarTarjeta from "./pokeTarjeta.js";
+import DibujarPokeDetails from "./DibujarPokemonDetails.js";
 
 const getPokemons = async function () {
 
@@ -54,12 +59,13 @@ const getSpecies = async (url) => {
 
 }
 
+
 //manejamos lo que ocurrira si la promesa se cumple o es rechazada
 getPokemons().then(pokemonDetails => {
 
-    //creamos un array para mejor manejo de los datos que contendra a los pokemons con toda su informacion
-    const Pokemons = [];
+    const Pokemons = [];//creamos un array para mejor manejo de los datos que contendra a los pokemons con toda su informacion
 
+    let zona = "poke-zona";
 
     for (let i = 0; i < pokemonDetails.length; i++) {
 
@@ -101,22 +107,29 @@ getPokemons().then(pokemonDetails => {
             //insertamos la instancia del pokemon en el array que contendra los pokemons para su manejo mas adelante
             Pokemons.push(p);
 
-            //mostramos los datos
-            Pokemons.forEach(element => {
-                console.log("Name: " + element.getName() + " ### Peso: " + element.getWeight() + " kg");
-            });
+            console.log("Name: " + p.getName() + " ### Peso: " + p.getWeight() + " kg" + " #"+ i);
 
+            //DibujarPokemon(Pokemons[i], pokemonDetails[i]);
+
+            
+
+            //DibujarPokemon(pokemonDetails[i], zona);
+
+            let tipo = Pokemons[i].getTypes();
+            //console.log(tipo);
             
             //controlamos en caso que la promesa sea rechazada
         }).catch(error => {
             console.error("Ha ocurrido un error con las especies: ", error);
         });
 
-
     }
-
+    test();
+    buscar(pokemonDetails, zona);
+    for (let index = 0; index < pokemonDetails.length; index++) {
+        DibujarPokeDetails(pokemonDetails[index], zona);
+    }
     
-
 
     //manejamos en caso que la promesa sea rechazada
 }).catch(error => {
@@ -124,5 +137,6 @@ getPokemons().then(pokemonDetails => {
 });
 
 
-getPokemons();
+//getPokemons();
+
 
