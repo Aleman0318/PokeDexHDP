@@ -29,7 +29,7 @@ const DibujarPokeDetails = (pokemon) => {
         </div>
     `;
                 
-    pokeCard.setAttribute("class", "card");
+    pokeCard.setAttribute("class", "cardPoke");
 
     pokeCard.addEventListener("click", function (){
         DibujarTarjeta(pokemon);

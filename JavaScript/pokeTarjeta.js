@@ -11,57 +11,60 @@ const DibujarTarjeta = (pokemon) => {
     const pokearea = document.querySelector("[POKE-AREA]");
     const regre = document.createElement("button");
 
-        regre.innerHTML = `<label>regresar</label>`;
-        regre.setAttribute("BTN-REG-PRINC", "");
+    regre.innerHTML = `regresar`;
+    regre.setAttribute("BTN-REG-PRINC", "");
     
-    
+    const input = document.querySelector("#pokeinput");
+    input.disabled = true;
 
     let tiposP = pokemon.types;
     let tipos = [];
                 
     for (let i = 0; i < tiposP.length; i++) {
-        tipos[i] = `<h3 class="${tiposP[i].type.name} tipo">${tiposP[i].type.name}</h3>`;
+        tipos[i] = `<h3 class="${tiposP[i].type.name} text-center align-self-center py-1 px-2" style="font-size: 16px; width: 80px;">${tiposP[i].type.name}</h3>`;
     }
 
     tipos = tipos.join('');
 
     tarjeta.innerHTML = `
-        <nav class="btn-arriba-basic" POKE-NAV>
-            <div BTN-OTROS>
+        <nav class="d-flex flex-row-reverse justify-content-between align-items-stretch z-3" style="height: 5vh;" POKE-NAV>
+            <div class="d-flex align-items-stretch" BTN-OTROS>
                 <button BTN-ADD-FAVO>favoritos</button>
                 <button BTN-ADD-POKE>capturar</button>
             </div>
         </nav>
-        <div class="poke-basic-stats" POKE-IMG>
+        <div class="" style="height: 30vh;" POKE-IMG>
             
-            <div class="img-nombre">
-                
-                <div class="img-poke">
-                    <h3 class="txt-arriba">${pokemon.name}</h3>
-                    <img class="tama-poke-img" src="${pokemon.sprites.other["official-artwork"].front_default}" alt="${pokemon.name}">
-                </div>
-                <div class="poke-nombre-tipos">
-                    <h1 class="txt-poke-id">${pokemon.id}</h1>
-                    <div class="tarj-tipos">
-                        ${tipos}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7 position-relative">
+                        <h3 class="position-absolute z-2">${pokemon.name}</h3>
+                        <img class="ms-4" style="height: 30vh;" src="${pokemon.sprites.other["official-artwork"].front_default}" alt="${pokemon.name}">
+                    </div>
+                    <div class="col-md-5 poke-nombre-tipos">
+                        <h1 class="mt-4 text-center" style="height: 20px;">${pokemon.id}</h1>
+                        <div class="d-flex flex-column gap-1 p-1 mb-1">
+                            ${tipos}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div POKE-STATS>
-            <nav class="nav-stats" POKE-NAV>
+            <nav class="d-flex justify-content-evenly" style="height: 5vh;" POKE-NAV>
                 <button class"btn-sts" BTN-POKE-ABOUT>about</button>
                 <button class"btn-sts" BTN-BASE-STATS>base stats</button>
                 <button class"btn-sts" BTN-EVOLUTION>evolution</button>
                 <button class"btn-sts" BTN-POKE-MOVES>moves</button>
             </nav>
-            <div class="poke-datos" POKE-DATOS>
+            <div class="d-flex flex-column p-1" style="height: 40vh;" POKE-DATOS>
                 
             </div>
         </div>
     `;
 
-    tarjeta.setAttribute("class", "poke-tarjeta");
+    tarjeta.setAttribute("class", "m-auto position-fixed z-3 border border-white");
+    tarjeta.setAttribute("style", "width: 400px; height: 80vh; top: 14vh;");
 
     const block = document.createElement("div");
     block.setAttribute("class", "block-conten");

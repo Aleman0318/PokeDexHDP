@@ -3,10 +3,10 @@ const test = () => {
     div.innerHTML = `
         
         <div class="col1" COL-POKE>
-            <div class="navbar" NAV>
+            <div class="navbar" NAV-POKE>
                 <div class="buscar">
                     <h3 class="pokebuscar">Pokemon</h3>
-                    <input type="text" class="poke-input" INPUT>
+                    <input type="text" class="poke-input" INPUT id="pokeinput">
                 </div>
             </div>
             
@@ -18,8 +18,6 @@ const test = () => {
 
         </div>
     `;
-
-   
 
     const zona = document.querySelector("body");
 

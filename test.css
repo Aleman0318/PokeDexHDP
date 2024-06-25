@@ -42,80 +42,11 @@
     margin: 0;
 }
 
-.btn-arriba-basic{
-    display: flex;
-    flex-direction: row-reverse;
-    height: 5vh;
-    justify-content: space-between;
-}
-
-.poke-basic-stats{
-    height: 30vh;
-    background-color: #70589899;
-}
-
-.img-nombre{
-    display: grid;
-    grid-template-columns: 6fr 5fr;
-    grid-template-rows: 1fr;
-}
-
-.txt-arriba{
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    height: 22px;
-    font-size: 22px;
-    z-index: 2;
-    color: var(--clr-white);
-}
-
-.img-poke{
-    grid-column-start: 1;
-    position: relative;
-}
-
-.tama-poke-img{
-    z-index: 0;
-    box-sizing: border-box;
-    margin-left: 30px;
-    height: 30vh;
-}
-
 .poke-nombre-tipos{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     max-height: 30vh;
-}
-
-.txt-poke-id{
-    margin-top: 20px;
-    text-align: center;
-    color: #ececec;
-    height: 20px;
-}
-
-.tarj-tipos{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-.nav-stats{
-    display: flex;
-    justify-content: space-evenly;
-    height:5vh;
-}
-
-.poke-datos{
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    background-color: #6890F044;
-    height: 40vh;
 }
 
 .pokemon-tipos {
@@ -220,7 +151,7 @@ body{
     padding: 10px 20px;
 }
 
-.card{
+.cardPoke{
     max-width: 240px;
     height: 150px;
     max-height: 220px;

@@ -124,9 +124,12 @@ getPokemons().then(pokemonDetails => {
     }
     test();
     buscar(pokemonDetails);
+    
     for (let index = 0; index < pokemonDetails.length; index++) {
         DibujarPokeDetails(pokemonDetails[index]);
     }
+    
+    
     
 
     //manejamos en caso que la promesa sea rechazada
