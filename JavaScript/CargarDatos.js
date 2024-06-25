@@ -65,8 +65,6 @@ getPokemons().then(pokemonDetails => {
 
     const Pokemons = [];//creamos un array para mejor manejo de los datos que contendra a los pokemons con toda su informacion
 
-    let zona = "poke-zona";
-
     for (let i = 0; i < pokemonDetails.length; i++) {
 
         const p = new Pokemon(); //nueva instancia pokemon
@@ -125,9 +123,9 @@ getPokemons().then(pokemonDetails => {
 
     }
     test();
-    buscar(pokemonDetails, zona);
+    buscar(pokemonDetails);
     for (let index = 0; index < pokemonDetails.length; index++) {
-        DibujarPokeDetails(pokemonDetails[index], zona);
+        DibujarPokeDetails(pokemonDetails[index]);
     }
     
 

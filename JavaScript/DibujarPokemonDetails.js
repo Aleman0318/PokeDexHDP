@@ -1,6 +1,6 @@
 import DibujarTarjeta from "./pokeTarjeta.js";
 
-const DibujarPokeDetails = (pokemon,zona) => {
+const DibujarPokeDetails = (pokemon) => {
     const pokeCard = document.createElement("div");
 
     const pokearea = document.querySelector("[POKE-AREA]");
@@ -32,7 +32,7 @@ const DibujarPokeDetails = (pokemon,zona) => {
     pokeCard.setAttribute("class", "card");
 
     pokeCard.addEventListener("click", function (){
-        DibujarTarjeta(pokemon, zona);
+        DibujarTarjeta(pokemon);
     })
                 
     pokearea.appendChild(pokeCard);

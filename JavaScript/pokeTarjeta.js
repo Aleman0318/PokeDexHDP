@@ -4,20 +4,15 @@ import btnRegIni from "./btn-regresar.js";
 import btnStast from "./btn-stats.js";
 import btnMoves from "./btn-moves.js";
 
-const DibujarTarjeta = (pokemon, zona) => {
+const DibujarTarjeta = (pokemon) => {
     const tarjeta = document.createElement("div");
     tarjeta.setAttribute("POKE-TARJETA", "");
 
     const pokearea = document.querySelector("[POKE-AREA]");
     const regre = document.createElement("button");
 
-    if(zona === "poke-zona"){
         regre.innerHTML = `<label>regresar</label>`;
         regre.setAttribute("BTN-REG-PRINC", "");
-    }if(zona === "poke-acompa"){
-        regre.innerHTML = `<label>regresar</label>`;
-        regre.setAttribute("BTN-REG-ACOMPA", "");
-    };
     
     
 
