@@ -28,8 +28,8 @@
     height: 80vh;
     margin: auto;
     background-color: #78C850;
-    position: absolute;
-    top: 20px;
+    position: fixed;
+    top: 14vh;
     z-index: 3;
 }
 
