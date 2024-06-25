@@ -1,5 +1,4 @@
 import btnAbout from "./btn-about.js";
-import btnEvo from "./btn-evo.js";
 import btnRegIni from "./btn-regresar.js";
 import btnStast from "./btn-stats.js";
 import btnMoves from "./btn-moves.js";
@@ -54,10 +53,10 @@ const DibujarTarjeta = (pokemon) => {
             <nav class="d-flex justify-content-evenly" style="height: 5vh;" POKE-NAV>
                 <button class"btn-sts" BTN-POKE-ABOUT>about</button>
                 <button class"btn-sts" BTN-BASE-STATS>base stats</button>
-                <button class"btn-sts" BTN-EVOLUTION>evolution</button>
+                
                 <button class"btn-sts" BTN-POKE-MOVES>moves</button>
             </nav>
-            <div class="d-flex flex-column p-1" style="height: 40vh;" POKE-DATOS>
+            <div class="d-flex flex-column p-1 overflow-auto" style="height: 40vh;" POKE-DATOS>
                 
             </div>
         </div>
@@ -72,6 +71,15 @@ const DibujarTarjeta = (pokemon) => {
     pokearea.appendChild(block);
     pokearea.appendChild(tarjeta);
 
+    const pokedatosdefecto = document.querySelector("[POKE-DATOS]");
+
+    pokedatosdefecto.innerHTML = ``;
+
+    pokedatosdefecto.innerHTML = `
+        <h1>Estamos en about.</h1>
+        <h3>${pokemon.name}</h3>
+    `;
+
     const about = document.querySelector("[BTN-POKE-ABOUT]");
     about.addEventListener("click", function (){
         btnAbout(pokemon);
@@ -80,11 +88,6 @@ const DibujarTarjeta = (pokemon) => {
     const stats = document.querySelector("[BTN-BASE-STATS]");
     stats.addEventListener("click", function (){
         btnStast(pokemon);
-    });
-
-    const evo = document.querySelector("[BTN-EVOLUTION]");
-    evo.addEventListener("click", function (){
-        btnEvo(pokemon);
     });
 
     const moves = document.querySelector("[BTN-POKE-MOVES]");
@@ -99,7 +102,6 @@ const DibujarTarjeta = (pokemon) => {
     });
 
     navb.appendChild(regre);
-
     
 }
 export default DibujarTarjeta;
