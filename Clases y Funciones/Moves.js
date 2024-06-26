@@ -23,6 +23,13 @@ class Moves{
     setPower(power){
         this.#power = power;
     }
+
+    toJSON() {
+        return {
+            nombre: this.#name,
+            poder: this.#power 
+        };
+    }
 }
 
 export default Moves;

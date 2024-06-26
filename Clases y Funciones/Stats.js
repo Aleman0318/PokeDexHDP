@@ -59,6 +59,17 @@ class Stats {
     setSpeed(speed){
         this.#speed = speed;
     }
+
+    toJSON() {
+        return {
+            vida: this.#hp,
+            ataque: this.#attack,
+            defensa: this.#defense,
+            ataque_especial: this.#special_attack,
+            defensa_especial: this.#special_defense,
+            velocidad: this.#speed
+        };
+    }
 }
 
 export default Stats;

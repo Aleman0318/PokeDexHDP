@@ -9,6 +9,7 @@ import getStats from "../Clases y Funciones/getStats.js";
 import getColorPokemon from "../Clases y Funciones/getColorPokemon.js";
 import getMovements from "../Clases y Funciones/getMovements.js"
 
+
 const cargarDatos = async () => {
     try {
         const Pokemons = [];
@@ -56,8 +57,14 @@ const cargarDatos = async () => {
             const ArrayMovements = await getMovements(pokemonDetail.moves);
             ArrayMovements.forEach(move => p.addMove(move));
 
-            const imagen = pokemonDetail.sprites.other.official-artwork.front_default;
+            const imagen = pokemonDetail.sprites.other?.['official-artwork']?.front_default;
             p.setImagen(imagen);
+
+            const shiny = pokemonDetail.sprites.other?.['official-artwork']?.front_shiny;
+            p.setShiny(shiny);
+
+            const sonido = pokemonDetail.cries.latest;
+            p.setSound(sonido);
 
             Pokemons.push(p);
 
@@ -75,3 +82,5 @@ const cargarDatos = async () => {
 }
 
 cargarDatos();
+
+export default cargarDatos;

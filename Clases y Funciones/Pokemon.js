@@ -15,6 +15,8 @@ class Pokemon {
     #color;
     #moves;
     #image;
+    #shiny;
+    #sound;
 
     constructor(){
         this.#abilities = [];
@@ -77,8 +79,16 @@ class Pokemon {
         return this.#image;
     }
 
+    getSound(){
+        return this.#sound;
+    }
+
     setName(name){
         this.#name = name;
+    }
+
+    getShiny(){
+        return this.#shiny;
     }
 
     addAbility(ability){
@@ -127,6 +137,34 @@ class Pokemon {
 
     setImagen(image){
         this.#image = image;
+    }
+
+    setShiny(url){
+        this.#shiny = url;
+    }
+
+    setSound(sound){
+        this.#sound = sound;
+    }
+
+    toJSON() {
+        return {
+            id: this.#id,
+            nombre: this.#name,
+            tipos: this.#types,
+            especies: this.#specie,
+            habilidades: this.#abilities,
+            altura: this.#height,
+            peso: this.#weight,
+            debilidades: this.#weaknesses,
+            grupoHuevos: this.#eggGroups,
+            estadisticas: this.#stats.toJSON(),
+            color: this.#color,
+            movimientos: this.#moves.map(move => move.toJSON()),
+            imagen: this.#image,
+            shiny: this.#shiny,
+            sound: this.#sound
+        };
     }
 }
 
