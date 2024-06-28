@@ -1,5 +1,4 @@
 
-import DibujarTarjeta from "./pokeTarjeta.js";
 import dibujarTarjetaPokemon from "./TarjetaPokemon.js"
 
 class Pokedex {

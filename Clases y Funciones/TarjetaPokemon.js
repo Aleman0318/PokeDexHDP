@@ -1,5 +1,4 @@
 
-
 const dibujarTarjetaPokemon = (pokemon) => {
 
     const body = document.querySelector("body"); //obtener body
