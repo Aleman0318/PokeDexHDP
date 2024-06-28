@@ -1,0 +1,520 @@
+
+/* NAVBAR */
+
+.navbar-custom {
+    background-color: #ee6d6d;
+    border-bottom: 5px solid #0e0e0e;
+    border-radius: 0px;
+    position: fixed; /* Cambiar de relative a fixed */
+    top: 0;
+    width: 100%;
+    z-index: 3;
+}
+
+.navbar-custom .navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.navbar-brand {
+    /* Centrar el elemento en el medio de su contenedor usando translate */
+    transform: translateY(-15%);
+}
+
+.navbar-custom .search-container {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.navbar-custom .search-input {
+    border-radius: 20px;
+    padding-right: 30px;
+}
+
+.search-input {
+    border: 0;
+}
+
+/* .navbar-custom .search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+} */
+
+.navbar-custom .circle {
+    position: absolute;
+    transform: translate(-100%);
+    background-color: #fff;
+    width: 60px;
+    height: 30px;
+    border-radius: 100%;
+}
+
+.navbar-custom {
+    height: 100px;
+}
+
+.circle {
+    top: 80%;
+    left: 50%;
+    border: 4px solid #0e0e0e;
+    transform: translateY(-20%) translateX(-52%) !important;
+    width: 100px !important;
+    height: 100px !important;
+}
+
+#buscar {
+    width: 200px;
+    height: 30px;
+}
+
+/* FIN NAVBAR */
+
+
+
+.imagen-tarjeta {
+    width: 230px;
+    height: 230px;
+    object-fit: contain;
+    display: block;
+    /* Asegura que la imagen se comporte como un bloque */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.imagen-tarjeta-principal {
+    width: 230px;
+    height: 230px;
+    object-fit: contain;
+    transform: translateY(-30%) translateX(20%);
+}
+
+.fondo-verde{
+    background-image: url('/Resources/fondo-verde.png');
+}
+
+.fondo-rojo{
+    background-image: url('/Resources/fondo-rojo.png');
+}
+
+.fondo-azul{
+    background-image: url('/Resources/fondo-azul.png');
+}
+
+.fondo-blanco{
+    background-image: url('/Resources/fondo-blanco.png');
+}
+
+.fondo-cafe{
+    background-image: url('/Resources/fondo-cafe.png');
+}
+
+.fondo-amarillo{
+    background-image: url('/Resources/fondo-amarillo.png');
+}
+
+.fondo-morado{
+    background-image: url('/Resources/fondo-morado.png');
+}
+
+.fondo-rosado{
+    background-image: url('/Resources/fondo-rosado.png');
+}
+
+.fondo-gris{
+    background-image: url('/Resources/fondo-gris.png');
+}
+
+.fondo-negro{
+    background-image: url('/Resources/fondo-negro.png');
+}
+
+.card {
+    width: 17rem;
+    /* Ancho fijo */
+    height: 25rem;
+    /* Alto fijo */
+    border: none;
+    position: relative;
+    z-index: 1;
+}
+
+.cursor-mano{
+    cursor: pointer; /* Cambia el cursor a una mano */
+}
+
+
+.font-name {
+    font-family: 'name-font';
+    font-size: 50px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    letter-spacing: 7px;
+}
+
+
+/*TARJETAS PRINCIPALES*/
+
+.font-name-principal {
+    font-family: 'name-font';
+    color: white;
+    position: absolute;
+    z-index: 2; 
+    font-size: 35px !important;
+    letter-spacing: 2px;
+}
+
+.font-id-principal {
+    font-family: 'id-font';
+    color: #7eb284;
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: 80px;
+}
+
+.font-types-principal {
+    font-family: 'types-font';
+    color: #5e7966;
+    font-size: 20px;
+    transform: translateY(-125px);
+}
+
+.font-circle-principal {
+    font-family: 'circle-font';
+    color: #5e7966;
+    font-size: 17px;
+    transform: translateY(-125px);
+}
+
+.contorno-verde-principal {
+    -webkit-text-stroke: 12px #92c79d;
+    position: absolute;
+    z-index: 1; 
+}
+
+
+
+
+/*fin tarjetas principales*/
+
+.font-id {
+    font-family: 'id-font';
+    color: #7eb284;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.font-types {
+    font-family: 'types-font';
+    color: #5e7966;
+    font-size: 22px;
+}
+
+.font-circle {
+    font-family: 'circle-font';
+    color: #5e7966;
+}
+
+.imagen-nav{
+    width: 40%;
+    height: auto;
+    object-fit: contain;
+}
+
+/*margen negativo para que los contenidos de las filas se vean mas unidos*/
+.margin-separar-arriba {
+    margin-top: 20px;
+}
+
+.margin-separar-arriba-corto {
+    margin-top: 2.5px;
+}
+
+.margin-separar-navbar{
+    margin-top: 150px;
+}
+
+.margin-separar-abajo {
+    margin-bottom: 20px;
+}
+
+@font-face {
+    font-family: "name-font";
+    src: url('/Resources/Cotton-Hill.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "id-font";
+    src: url('/Resources/Summer\ Dream\ Sans\ DEMO\ .ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "types-font";
+    src: url('/Resources/seguibl.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "circle-font";
+    src: url('/Resources/circlethings.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "Options-font";
+    src: url('/Resources/ROCK.TTF') format('truetype');
+}
+
+@font-face {
+    font-family: "data-font";
+    src: url('/Resources/OverpassNerdFont-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "info-font";
+    src: url('/Resources/OverpassNerdFont-Regular.ttf') format('truetype');
+}
+
+.font-info{
+    font-family: 'info-font';
+    font-size: 15px;
+    color: #0e0e0e;
+}
+
+.font-data{
+    font-family: 'data-font';
+    font-size: 17px;
+    color: #0e0e0e;
+}
+
+
+.margen-acercar-arriba {
+    margin-top: -17px;
+}
+
+.margen-acercar-arriba-principal {
+    margin-top: -35px;
+}
+
+/*colores de fondo de letra*/
+.contorno-verde {
+    -webkit-text-stroke: 12px #92c79d;
+}
+
+.contorno-rojo {
+    -webkit-text-stroke: 12px #f28585;
+}
+
+.contorno-azul {
+    -webkit-text-stroke: 12px #7bb6d6;
+}
+
+.contorno-blanco {
+    -webkit-text-stroke: 12px #e1dddd;
+}
+
+.contorno-cafe {
+    -webkit-text-stroke: 12px #c08f69;
+}
+
+.contorno-amarillo {
+    -webkit-text-stroke: 12px #eddc93;
+}
+
+.contorno-morado {
+    -webkit-text-stroke: 12px #7B6E91;
+}
+
+.contorno-rosado {
+    -webkit-text-stroke: 12px #faacd8;
+}
+
+.contorno-gris {
+    -webkit-text-stroke: 12px #B6B4B4;
+}
+
+.contorno-negro {
+    -webkit-text-stroke: 12px #424242;
+}
+
+.contorno-tipos {
+    -webkit-text-stroke: 0.5px #1d1d1d;
+}
+
+/*colores de numero*/
+.color-verde{
+    color:  #84b58e;
+}
+
+.color-rojo{
+    color: #ae5353;
+}
+
+.color-azul{
+    color: #5e8aa1;
+}
+
+.color-blanco{
+    color: #C2C2C2;
+}
+
+.color-cafe{
+    color: #a57d5e;
+}
+
+.color-amarillo{
+    color: #c1b378;
+}
+
+.color-morado{
+    color: #716683;
+}
+
+.color-rosado{
+    color: #e796c5;
+}
+
+.color-gris{
+    color: #676767;
+}
+
+.color-negro{
+    color: #c0bdbd;
+}
+
+.shadow-moved {
+    box-shadow: 0 5px 6px rgba(0, 0, 0, 0.3); /* Ajusta los valores según tus necesidades */
+}
+
+
+h3{
+    font-size: 40px !important;
+}
+
+.card-movimiento {
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+    transition: all 400ms ease-out;
+}
+
+.card-movimiento:hover {
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-3%);
+}
+
+
+.area{
+    width: 100%;
+    height: 110vh;
+    justify-content: center;
+    align-items: center;
+    background-color: #00000042;
+    position: fixed;
+    z-index: 2;
+    margin-top: -115px;
+    backdrop-filter: blur(10px);
+}
+
+.tamaño-tarjeta-principal{
+    width: 30rem;
+    /* Ancho fijo */
+    height: 47rem;
+}
+
+.fondo-verde-principal{
+    background-image: url("/Resources/fondo-verde-principal.png");
+}
+
+.icono-volver{
+    width: 35px;
+    height: 35px;
+}
+
+.btn_volver{
+    width: 12%;
+    height: 50px;
+    border: none;
+    background-color: transparent; 
+    transition: all 400ms ease-out;
+}
+
+.btn_volver:hover {
+    transform: translateX(-50%);
+}
+
+.btn_pokebola{
+    width: 12%;
+    height: 50px;
+    border: none;
+    background-color: transparent; 
+    transition: all 400ms ease-out;
+}
+
+.icono-pokebola{
+    width: 40px;
+    height: 40px;
+}
+
+.tamaño-tarjeta-info{
+    width: 100%;
+    height: 40vh;
+}
+
+.br-info{
+    border-radius: 20px;
+}
+
+
+/*Animacion boton de info tarjeta*/
+.btnOp {
+    font-size: 15px;
+    font-family: 'Options-font';
+    text-transform: uppercase;
+    display: inline;
+    text-align: center;
+    font-weight: bold;
+    padding: 0.7em 2em;
+    border: none;
+    border-radius: 20px;
+    position: relative;
+    color: #5a5a5a;
+    text-decoration: none;
+    transition: 0.3s ease all;
+    z-index: 1;
+    width: 150px;
+    background-color: transparent;
+}
+
+.btnOp:before {
+    transition: 0.5s all ease;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    opacity: 0;
+    content: '';
+    border-bottom: 2px solid rgb(31, 31, 31);
+    z-index: -1;
+}
+
+.btnOp:hover, .btnOp:focus, .btnOp.active {
+    color: black;
+}
+
+.btnOp:hover:before, .btnOp:focus:before, .btnOp.active:before {
+    transition: 0.5s all ease;
+    left: 0;
+    right: 0;
+    opacity: 1;
+}
+
+.btnOp:active {
+    transform: scale(0.9);
+}
+
