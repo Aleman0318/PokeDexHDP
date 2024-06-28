@@ -1,128 +1,86 @@
 
 //importamos la clase Pokemon
-import Pokemon from "../Clases/Pokemon.js";
-
-const getPokemons = async function () {
-
-    //declaramos el metodo get para la variable options que sera pasada como parametro de la funcion fetch
-    const options = {
-        method: 'GET'
-    };
-
-    const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=150", options); //obtenemos los primeros 150 pokemons a traves de un endpoint
-
-    const data = await response.json(); //parseamos a JSON la promesa obtenida
-
-    const PokemonsURLS = data.results.map(pokemon => pokemon.url); //obtenemos las url de cada pokemon y creamos un nuevo array con esos datos
-
-    const PokemonsDetailsPromises = PokemonsURLS.map(url => fetch(url, options).then(res => res.json())); // como el resultado del fetch sera una promesa, usamos directamente
-    //el metodo then para controlar que hacer con la promesa obtenida si la carga de datos funciona
-
-    //contendra por medio del metodo promise.all() un array de promesas del conjunto de promesas realizadas en pokemonsdetailspromises volviendose en si una sola promesa
-    const pokemonDetails = await Promise.all(PokemonsDetailsPromises);
-
-    return pokemonDetails;
-
-}
+import Pokemon from "../Clases y Funciones/Pokemon.js";
+import getPokemons from "../Clases y Funciones/getPokemons.js"
+import getSpecies from "../Clases y Funciones/getSpecies.js";
+import getDebilidades from "../Clases y Funciones/getDebilidades.js";
+import getEggsGroup from "../Clases y Funciones/getEggsGroups.js";
+import getStats from "../Clases y Funciones/getStats.js";
+import getColorPokemon from "../Clases y Funciones/getColorPokemon.js";
+import getMovements from "../Clases y Funciones/getMovements.js"
 
 
-const getSpecies = async (url) => {
+const cargarDatos = async () => {
+    try {
+        const Pokemons = [];
+        const colores = [];
 
-    const species = [];
+        const pokemonDetails = await getPokemons();
 
-    const options = {
-        method: 'GET'
-    };
+        const options = {
+            method: 'GET'
+        };
 
-    const response = await fetch(url, options);
+        const promises = pokemonDetails.map(async (pokemonDetail) => {
+            const p = new Pokemon();
 
-    const data = await response.json();
+            const response = await fetch(pokemonDetail.species.url, options);
+            const dataSpecies = await response.json();
 
-    const specieArray = data.genera;
+            p.setName(pokemonDetail.name);
+            p.setID(pokemonDetail.id);
 
-    for (let i = 0; i < specieArray.length; i++) {
+            pokemonDetail.abilities.forEach(ability => p.addAbility(ability.ability.name));
+            pokemonDetail.types.forEach(type => p.addType(type.type.name));
 
-        if (specieArray[i].language.name == "es") {
+            p.setHeight(pokemonDetail.height);
+            p.setWeight(pokemonDetail.weight);
 
-            species.push(specieArray[i].genus);
-            break;
-        }
+            const Specie = getSpecies(dataSpecies);
+            p.setSpecie(Specie);
 
-    }
+            const weaknesses = await getDebilidades(pokemonDetail.types);
+            weaknesses.forEach(weakness => p.addWeaknesses(weakness));
 
-    return species;
+            const EggGroups = getEggsGroup(dataSpecies);
+            EggGroups.forEach(group => p.addeggGroup(group));
 
-}
+            const stats = getStats(pokemonDetail.stats);
+            p.setStats(stats);
 
-//manejamos lo que ocurrira si la promesa se cumple o es rechazada
-getPokemons().then(pokemonDetails => {
-
-    //creamos un array para mejor manejo de los datos que contendra a los pokemons con toda su informacion
-    const Pokemons = [];
-
-
-    for (let i = 0; i < pokemonDetails.length; i++) {
-
-        const p = new Pokemon(); //nueva instancia pokemon
-
-        p.setName(pokemonDetails[i].name); //seteamos el nombre de la instancia
-
-        const abilitiesArray = pokemonDetails[i].abilities; //recortamos la consulta del array de habilidades para manejo mas fácil
-
-        for (let y = 0; y < abilitiesArray.length; y++) {
-
-            p.addAbility(abilitiesArray[y].ability.name); //insertamos por el metodo addAbility() los nombres de las habilidades de los pokemons
-        }
-
-        const typesArray = pokemonDetails[i].types; //recortamos la consulta del array de tipos para manejo mas fácil
-
-        for (let z = 0; z < typesArray.length; z++) {
-
-            p.addType(typesArray[z].type.name); //insertamos por el metodo addtype() los tipos del pokemon
-
-        }
-
-        //controlamos la obtencion de las especies de cada pokemon por medio de su url
-        getSpecies(pokemonDetails[i].species.url).then(spe => {
-
-            //insertamos cada especie en el pokemon creado
-            for (let s = 0; s < spe.length; s++) {
-
-                p.addSpecie(spe[s]);
-
+            const color = getColorPokemon(dataSpecies);
+            p.setColor(color);
+            if (!colores.includes(color)) {
+                colores.push(color);
             }
 
-            //seteamos la altura de cada pokemon en decimetros (el metodo set hace la conversion internamente a cm)
-            p.setHeight(pokemonDetails[i].height);
+            const ArrayMovements = await getMovements(pokemonDetail.moves);
+            ArrayMovements.forEach(move => p.addMove(move));
 
-            //seteamos el peso de cada pokemon en hectogramos (el metodo hace la conversion de forma interna a kg)
-            p.setWeight(pokemonDetails[i].weight);
+            const imagen = pokemonDetail.sprites.other?.['official-artwork']?.front_default;
+            p.setImagen(imagen);
 
-            //insertamos la instancia del pokemon en el array que contendra los pokemons para su manejo mas adelante
+            const shiny = pokemonDetail.sprites.other?.['official-artwork']?.front_shiny;
+            p.setShiny(shiny);
+
+            const sonido = pokemonDetail.cries.latest;
+            p.setSound(sonido);
+
             Pokemons.push(p);
 
-            //mostramos los datos
-            Pokemons.forEach(element => {
-                console.log("Name: " + element.getName() + " ### Peso: " + element.getWeight() + " kg");
-            });
-
-            
-            //controlamos en caso que la promesa sea rechazada
-        }).catch(error => {
-            console.error("Ha ocurrido un error con las especies: ", error);
         });
 
+        await Promise.all(promises);
 
+        Pokemons.sort((a, b) => a.getID() - b.getID());
+
+        return Pokemons;
+
+    } catch (error) {
+        console.error("Ha ocurrido un error con la carga de datos: ", error);
     }
+}
 
-    
+cargarDatos();
 
-
-    //manejamos en caso que la promesa sea rechazada
-}).catch(error => {
-    console.error("Ha ocurrido un error con la carga de datos: ", error);
-});
-
-
-getPokemons();
-
+export default cargarDatos;
